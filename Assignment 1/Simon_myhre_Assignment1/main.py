@@ -18,7 +18,7 @@ def laplacian_Filter(image):
 
 
 image = imageio.imread("Lena-Gray.png")  # Reading the image.
-image_with = GaussianBlur(image, (5,5), 2) # Apply Gaussain filter.
+image_with = GaussianBlur(image, (5,5), 5) # Apply Gaussain filter.
 imageio.imwrite("output-Lena-Gray-only_gaussian.png", image_with) # Writing an image that has only Guassian smoothening applied to it.
 image_with = laplacian_Filter(image_with) # Apply Laplacian filter
 image_without = laplacian_Filter(image) # Apply Laplacian filter
