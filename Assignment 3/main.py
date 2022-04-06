@@ -26,6 +26,25 @@ def extract_fourier_response(data_folder, output_folder, scipy=None):
     # Save Fourier responses
     fourier_responses = np.array(fourier_responses)
     savemat(output_folder + 'fourier_responses.mat', {'fourier_responses': fourier_responses})
+    print(fourier_responses[0])
+
+    # Flattern Fourier responses
+    flattened_fourier_responses = []
+    for fourier_response in fourier_responses:
+        flattened_fourier_responses.append(fourier_response.flatten())
+        flattened_fourier_responses = np.array(flattened_fourier_responses)
+
+    """
+    # Makes the flattened fourier responses in range of 0 to 1
+    for flattened_fourier_response in flattened_fourier_responses:
+        maximum = np.max(flattened_fourier_response)
+        print(maximum)
+        for index in range(len(flattened_fourier_response)):
+            flattened_fourier_response[index] = flattened_fourier_response[index] / maximum
+    """
+
+
+
 
     # Plot/Save Fourier responses
     for i in range(len(fourier_responses)):
@@ -37,3 +56,4 @@ def extract_fourier_response(data_folder, output_folder, scipy=None):
     return None
 
 extract_fourier_response('data/test/', 'data_output/')
+
