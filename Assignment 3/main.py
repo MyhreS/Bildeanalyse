@@ -1,14 +1,13 @@
 
-
 """Extract Fourier response from all images in the data folder. """
 
+# TODO: Make directory class and make it iterate down the directory tree
 def extract_fourier_response(data_folder, output_folder, scipy=None):
     """Extract Fourier response from all images in the data folder. """
     import os
     import numpy as np
     import matplotlib.pyplot as plt
-    from scipy.fftpack import fft2, ifft2, fftshift
-    from scipy.ndimage import gaussian_filter
+    from scipy.fftpack import fft2, fftshift
     from scipy.io import savemat
 
     # Load images
@@ -28,7 +27,7 @@ def extract_fourier_response(data_folder, output_folder, scipy=None):
     fourier_responses = np.array(fourier_responses)
     savemat(output_folder + 'fourier_responses.mat', {'fourier_responses': fourier_responses})
 
-    # Plot Fourier responses
+    # Plot/Save Fourier responses
     for i in range(len(fourier_responses)):
         plt.figure(figsize=(8, 8))
         plt.imshow(np.abs(fourier_responses[i]), cmap='gray')
@@ -37,4 +36,4 @@ def extract_fourier_response(data_folder, output_folder, scipy=None):
 
     return None
 
-extract_fourier_response('data/', 'data_output/')
+extract_fourier_response('data/test/', 'data_output/')
