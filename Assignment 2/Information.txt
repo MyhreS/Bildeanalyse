@@ -1,0 +1,6 @@
+Tools used:
+1. Labelimg
+2. Custom resize python file
+
+Resources:
+A resource zip folder that is contains pretrained models for YOLO and Faster-RCNN done by me. Also contains images and images annotations for both YOLO and Faster-RCNN

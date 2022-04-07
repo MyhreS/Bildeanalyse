@@ -1,3 +1,3 @@
-Accuracy for degree 1: 0.294
-Accuracy for degree 3: 0.289
-Accuracy for degree 5: 0.288
+Accuracy for degree 1: 0.291
+Accuracy for degree 3: 0.2815
+Accuracy for degree 5: 0.2915

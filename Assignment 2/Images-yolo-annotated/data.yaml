@@ -1,0 +1,5 @@
+train: /content/Bildeanalyse-assignment2-resources/yolo/Images-yolo-annotated/train/images
+val: /content/Bildeanalyse-assignment2-resources/yolo/Images-yolo-annotated/valid/images
+
+nc: 1
+names: ['tattoos']

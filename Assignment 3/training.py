@@ -57,12 +57,12 @@ def apply_pca(mats, n_components):
 def run():
     """Load training and testing data with labels. Then train and test multiple SVM classifiers."""
     # Loading mats and labels in the digit_training folder
-    mats_train, labels_train = load_mats('Digit_training_fourier_response_images/')
+    mats_train, labels_train = load_mats('Digit_training_fourier_response/')
     # Scale the data to 0-1
     scaled_mats_train = scale_to_between_0_and_1(mats_train)
 
     # Load the testing data
-    mats_test, labels_test = load_mats('Digit_testing_fourier_response_images/')
+    mats_test, labels_test = load_mats('Digit_testing_fourier_response/')
     # Scale the data to 0-1
     scaled_mats_test = scale_to_between_0_and_1(mats_test)
     #Check the shape of the data
@@ -108,9 +108,6 @@ def run():
 
         # Fit the classifier on the training data
         clf.fit(scaled_pca_mats_train, labels_train)
-
-        # Load the testing data
-        mats_test, labels_test = load_mats('Digit_testing_fourier_response_images/')
 
         # Predict the labels of the test data
         accuracy = clf.score(scaled_pca_mats_test, labels_test)

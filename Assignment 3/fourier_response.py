@@ -25,7 +25,7 @@ def extract_fourier_response_for_one_folder(data_folder):
     split = output_folder.split('/')
     last_folder = split[-2]
     # Join everything before the last two slashes
-    output_folder = '/'.join(split[:-2]) + '_fourier_response_images/' + last_folder + '/'
+    output_folder = '/'.join(split[:-2]) + '_fourier_response/' + last_folder + '/'
     # + '_fourier_response_images/'
     if os.path.exists(output_folder):
         shutil.rmtree(output_folder)
