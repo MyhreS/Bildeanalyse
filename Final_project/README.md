@@ -8,4 +8,5 @@ pip install imgaug
 pip install numpy
 pip install torch
 pip install -U -r yolov5/requirements.txt
+pip install scikit-learn
 ```
