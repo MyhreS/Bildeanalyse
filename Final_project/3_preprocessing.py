@@ -3,9 +3,7 @@ import matplotlib.pyplot as plt
 import cv2
 import glob
 import pandas as pd
-import shutil
 import os
-import imgaug.augmenters as iaa
 
 # Function that plots a single image
 def plot_image(image):
