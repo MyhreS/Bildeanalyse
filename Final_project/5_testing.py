@@ -5,13 +5,7 @@ import matplotlib.pyplot as plt
 import os
 import pandas as pd
 import imgaug.augmenters as iaa
-from sklearn.model_selection import train_test_split
-import random
-from keras.optimizers import Adam
-from keras.callbacks import EarlyStopping, ReduceLROnPlateau
-from keras.layers import Dense, Flatten
-from keras.models import Sequential, load_model
-from keras.applications.vgg16 import VGG16
+from keras.models import load_model
 import shutil
 
 
@@ -42,47 +36,58 @@ print()
 Visualizing the custom testing images
 """
 
-# Plot the 3 images
+# Plot first 9 images from new_images
+fig = plt.figure(figsize=(10, 5))
 for i in range(3):
-    plt.subplot(1, 3, i+1)
-    plt.imshow(testing_images[i])
-    plt.axis('off')
+    # Preparing plot for image.
+    fig.add_subplot(1, 3, i + 1)
+    # Plotting image in preparet plot.
+    plt.imshow(testing_images[i], cmap="gray")
+    plt.axis("off")
+fig.suptitle("Testing images", fontsize=30)
+fig.tight_layout()
 plt.show()
 
 
 
-# """
-# Detecting on the custom testing images using the YOLOv5 model with MY weights
-# """
-# """
-# Detect characters in the custom test images using the weight I trained
-# """
-#
-# # Delete all folders in yolov5/runs/detect if run before
-# paths_in_detect = glob.glob("yolov5/runs/detect/*")
-# for path_in_detect in paths_in_detect:
-#     shutil.rmtree(path_in_detect)
-#
-# # Run detect
-# os.system("python yolov5/detect.py --save-txt --weights yolo_trained_weights/best.pt --img 608 --conf 0.4 --source 3_testing_words/test_words")
-#
-#
-#
-# """
-# Visualize the detected words
-# """
-#
-# # Read images
-# detected_images = []
-# for path_detected_image in glob.glob("yolov5/runs/detect/exp/*jpg"):
-#    detected_images.append(cv2.imread(path_detected_image))
-#
-# # Plot the 3 images
-# for i in range(3):
-#     plt.subplot(2, 2, i+1)
-#     plt.imshow(detected_images[i])
-#     plt.axis("off")
-# plt.show()
+
+
+"""
+Detecting on the custom testing images using the YOLOv5 model with MY weights
+"""
+"""
+Detect characters in the custom test images using the weight I trained
+"""
+
+# Delete all folders in yolov5/runs/detect if run before
+paths_in_detect = glob.glob("yolov5/runs/detect/*")
+for path_in_detect in paths_in_detect:
+    shutil.rmtree(path_in_detect)
+
+# Run detect
+os.system("python yolov5/detect.py --save-txt --weights yolo_trained_weights/best.pt --img 608 --conf 0.4 --source 3_testing_words/test_words")
+
+
+
+"""
+Visualize the detected words
+"""
+
+# Read images
+detected_images = []
+for path_detected_image in glob.glob("yolov5/runs/detect/exp/*jpg"):
+   detected_images.append(cv2.imread(path_detected_image))
+
+
+# Plot images in detected_images
+fig = plt.figure(figsize=(10, 10))
+for i in range(3):
+    fig.add_subplot(3, 3, i + 1)
+    plt.imshow(detected_images[i], cmap="gray")
+    plt.axis("off")
+fig.suptitle("Detections", fontsize=30)
+fig.tight_layout()
+plt.show()
 
 
 """
@@ -160,12 +165,16 @@ for name in names:
 
 print("Number of character images:",len(new_images))
 
-
 # Plot first 9 images from new_images
+fig = plt.figure(figsize=(10, 10))
 for i in range(9):
-    plt.subplot(3, 3, i+1)
+    # Preparing plot for image.
+    fig.add_subplot(3, 3, i + 1)
+    # Plotting image in preparet plot.
     plt.imshow(new_images[i], cmap="gray")
     plt.axis("off")
+fig.suptitle("Cropped", fontsize=30)
+fig.tight_layout()
 plt.show()
 
 
@@ -184,12 +193,19 @@ def resize(images):
 # Resize images
 images_v1 = resize(new_images)
 print(images_v1.shape)
+print()
+
 
 # Plot first 9 images from images_v1
+fig = plt.figure(figsize=(10, 10))
 for i in range(9):
-    plt.subplot(3, 3, i+1)
+    # Preparing plot for image.
+    fig.add_subplot(3, 3, i + 1)
+    # Plotting image in preparet plot.
     plt.imshow(images_v1[i], cmap="gray")
     plt.axis("off")
+fig.suptitle("Resized", fontsize=30)
+fig.tight_layout()
 plt.show()
 
 
@@ -250,10 +266,15 @@ images_v2 = np.array(images_v2)
 
 
 # Plot first 9 images from images_v2
+fig = plt.figure(figsize=(10, 10))
 for i in range(9):
-    plt.subplot(3, 3, i+1)
+    # Preparing plot for image.
+    fig.add_subplot(3, 3, i + 1)
+    # Plotting image in preparet plot.
     plt.imshow(images_v2[i], cmap="gray")
     plt.axis("off")
+fig.suptitle("Eroded", fontsize=30)
+fig.tight_layout()
 plt.show()
 
 
@@ -268,9 +289,87 @@ for image in images_v2:
   image_aug = iaa.Affine(scale=0.7)(image=image) # Zoom out
   images_v3.append(image_aug)
 
+
 # Plot first 9 images from images_v3
+fig = plt.figure(figsize=(10, 10))
 for i in range(9):
-    plt.subplot(3, 3, i+1)
+    # Preparing plot for image.
+    fig.add_subplot(3, 3, i + 1)
+    # Plotting image in preparet plot.
     plt.imshow(images_v3[i], cmap="gray")
     plt.axis("off")
+fig.suptitle("Zoomed out", fontsize=30)
+fig.tight_layout()
+plt.show()
+
+
+
+"""
+Reshape channels to fit the CNN model requirements
+"""
+
+ # Function that reshapes images to 3 channels
+def reshape_channels(images):
+  three_channels = []
+  for image in images:
+    three_channels.append(cv2.cvtColor(image,cv2.COLOR_GRAY2RGB))
+  return np.array(three_channels)
+
+# Reshape images
+images_v4 = reshape_channels(images_v3)
+print(images_v4.shape)
+print()
+
+
+# Rename
+images = images_v4
+print(images.shape)
+print()
+
+
+"""
+Pass the images of characters to the CNN model for classification
+"""
+"""
+Load the model I trained
+"""
+
+# Loading the trained model
+model = load_model("cnn_trained_model/CNN_trained_model.h5")
+# Viewing the model
+model.summary()
+
+
+
+"""
+Predict on the detected characters
+"""
+
+# Id for labels
+label_id = {"0":"0", "1":"1", "2":"2", "3":"3", "4":"4", "5":"5", "6":"6", "7":"7", "8":"8", "9":"9", "10":"A",
+            "11":"B", "12":"C", "13":"D", "14":"E", "15":"F", "16":"G", "17":"H", "18":"I", "19":"J", "20":"K",
+            "21":"L", "22":"M", "23":"N", "24":"O", "25":"P", "26":"Q", "27":"R", "28":"S", "29":"T", "30":"U",
+            "31":"V", "32":"W", "33":"X", "34":"Y", "35":"Z", "36":"a", "37":"b", "38":"c", "39":"d", "40":"e",
+            "41":"f", "42":"g", "43":"h", "44":"i", "45":"j", "46":"k", "47":"l", "48":"m", "49":"n", "50":"o",
+            "51":"p", "52":"q", "53":"r", "54":"s", "55":"t", "56":"u", "57":"v", "58":"w", "59":"x", "60":"y",
+            "61":"z" }
+
+# Do prediction on the images
+prediction = model.predict(images)
+
+# Format predictions using the label_id dictionary
+predicted_formated = []
+for row in prediction:
+  predicted = np.argmax(row)
+  predicted_formated.append(label_id[str(predicted)])
+
+# Plotting the predictios with their images
+fig = plt.figure(figsize=(20, 10))
+for index, image in enumerate(images):
+    fig.add_subplot(4, 10, index + 1)
+    plt.imshow(image, cmap="gray")
+    plt.title("Predicted: "+predicted_formated[index])
+    plt.axis('off')
+fig.suptitle("Predictions", fontsize=30)
+fig.tight_layout()
 plt.show()
