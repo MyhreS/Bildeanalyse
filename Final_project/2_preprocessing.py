@@ -6,7 +6,17 @@ import matplotlib.pyplot as plt
 import os
 import glob
 
-
+"""
+======================================================================================================================
+There was no propper dataset of words, so I created a dataset from combining the 2_char74k_&_characters/characters and
+2_char74k_&_characters/Fnt datasets.
+The 'characters' dataset was a small dataset, so this .py file processes and augments them to a larger dataset.
+Lastly this .py file combines the augmented dataset with the 'Fnt' dataset. The resulting dataset is saved in
+2_char74k_&_characters/augmented.
+It also saves the labels that lates is used to know what label each image is.
+This 'augmented' dataset is used to train the CNN model in 4_training.py
+======================================================================================================================
+"""
 
 
 """

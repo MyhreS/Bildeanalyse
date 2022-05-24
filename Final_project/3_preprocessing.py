@@ -5,6 +5,20 @@ import glob
 import pandas as pd
 import os
 
+
+"""
+==============================================================================================================
+This dataset was created to test the combined YOLO and CNN models on handwritten words. 
+There were no such data, so I created one many manually by writing on my Ipad. This is saved in
+3_testing_words/pages.
+This .py files crops and processes the words out of the pages and saves them in 3_testing_words/testing_words.
+It crops the words using the annotations created by me.
+This 'testing_words' dataset is used to test the combined YOLO and CNN models in 5_testing.py
+==============================================================================================================
+"""
+
+
+
 # Function that plots a single image
 def plot_image(image):
     plt.imshow(image)

@@ -14,6 +14,19 @@ from keras.models import Sequential, load_model
 from keras.applications.vgg16 import VGG16
 
 
+"""
+
+THIS WILL NOT WORK IF YOU DON'T HAVE ENOUGH MEMORY. BECAUSE IF THIS CANT ALLOCATE MEMORY, IT WILL CRASH.
+=======================================================================================================================
+This .py file trains a YOLOv5 object detection model and a CNN model.
+The 'YOLOv5' model uses the images and annotations from '1_documents/words_v2' to train the model.
+Then the 'CNN' model uses the images and labels from '2_char74k_&_characters/augmented' to train the model.
+The training is set to run for 1 epoch just to prove that the code is working. After they have 'trained' they
+will be tested on their test set. They will use the weights I trained. I trained them for many many hours and epochs on 
+Google Colab.
+=======================================================================================================================
+"""
+
 
 """
 Training a Yolov5 model

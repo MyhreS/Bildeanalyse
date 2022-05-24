@@ -10,6 +10,15 @@ import shutil
 
 
 """
+========================================================================================================================
+This .py file combines the trained YOLOv5 and CNN model. It uses the images from '3_testing_words/test_words'.
+Firstly it loads the images. Then it detects each character in every word in the images from the 'test_words'.
+Then it crops the characters out of the images/words. Then processes the new images to fit the CNN model.
+Finally it predicts one the character images using the CNN model and visualizes the images with the predicted characters. 
+=========================================================================================================================
+"""
+
+"""
 Preparing the testing data
 """
 """

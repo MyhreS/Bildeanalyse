@@ -6,6 +6,18 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 """
+=====================================================================================================================
+There was no propper dataset of words, so I created a dataset of words from documents. 
+This .py file processes the documents in 1_documents/documents and creates the 1_documents/words dataset.
+It processes the words from the 'documents' using the annotations created by me.
+After this 'words' dataset was created, I manually formated it into YOLO format and saved it as 1_documents/words_v2.
+Each character in the words in the 'words' dataset was annotated manually by me after the processing. 
+This 'words_v2' dataset is used to train the YOLO object detection model in 4_training.py
+=====================================================================================================================
+"""
+
+
+"""
 Get paths to images and annotations
 """
 
