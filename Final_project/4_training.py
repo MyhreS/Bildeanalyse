@@ -1,4 +1,5 @@
 import glob
+import shutil
 import numpy as np
 import cv2
 import matplotlib.pyplot as plt
@@ -6,13 +7,13 @@ import os
 import pandas as pd
 from sklearn.model_selection import train_test_split
 import random
-import tensorflow as tf
-import keras
 from keras.optimizers import Adam
 from keras.callbacks import EarlyStopping, ReduceLROnPlateau
 from keras.layers import Dense, Flatten
 from keras.models import Sequential, load_model
-from keras.applications.vgg16 import VGG16, preprocess_input
+from keras.applications.vgg16 import VGG16
+
+
 
 """
 Training a Yolov5 model
@@ -51,6 +52,11 @@ os.system("python yolov5/train.py --img 608 --batch 16 --epochs 1 --data 1_docum
 Testing the yolov5 model on MY weights
 """
 
+# Delete all folders in yolov5/runs/detect if run before
+paths_in_detect = glob.glob("yolov5/runs/detect/*")
+for path_in_detect in paths_in_detect:
+    shutil.rmtree(path_in_detect)
+
 # Run detect
 os.system("python yolov5/detect.py --save-txt --weights yolo_trained_weights/best.pt --img 608 --conf 0.4 --source 1_documents/words_v2/test/images")
 
@@ -59,14 +65,12 @@ os.system("python yolov5/detect.py --save-txt --weights yolo_trained_weights/bes
 """
 Visualize yolov5 results
 """
-#Read the detections
-outputs = glob.glob("yolov5/runs/detect/*")
-last_output_batch = outputs[len(outputs)-1] + "/*jpg"
+# Reading images
 detected_images = []
-for path_detected_image in glob.glob(last_output_batch):
+for path_detected_image in glob.glob("yolov5/runs/detect/exp/*jpg"):
    detected_images.append(cv2.imread(path_detected_image))
 
-#Plot first 4 images with little space between
+# Plot first 4 images
 for i in range(4):
     plt.subplot(2, 2, i+1)
     plt.imshow(detected_images[i])
