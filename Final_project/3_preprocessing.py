@@ -8,7 +8,7 @@ import os
 
 """
 ==============================================================================================================
-This dataset was created to test the combined YOLO and CNN models on handwritten words. 
+This .py file creates a dataset to test the combined YOLO and CNN models on handwritten words. 
 There were no such data, so I created one many manually by writing on my Ipad. This is saved in
 3_testing_words/pages.
 This .py files crops and processes the words out of the pages and saves them in 3_testing_words/testing_words.
